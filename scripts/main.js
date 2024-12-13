@@ -1,15 +1,15 @@
 const BASE_URL = "http://microbloglite.us-east-2.elasticbeanstalk.com"
-const NO_AUTH_HEADERS = {'accept': 'application/json','Content-Type': 'application/json'}
+const NO_AUTH_HEADERS = { 'accept': 'application/json', 'Content-Type': 'application/json' };
 // Insecure Token Free Actions (Only 2)
 
 // Create user - sign up
-async function signUp(username, fullname, password) {
+async function signUp(username, fullName, password) {
     const payload = JSON.stringify(
         { "username": username, "fullName": fullName, "password": password }
     );
     const response = await fetch(BASE_URL + "/api/users", {
-        method: "Post",
-        header: NO_AUTH_HEADERS,
+        method: "POST",
+        headers: NO_AUTH_HEADERS,
         body: payload
     }); // end fetch
 
@@ -27,8 +27,8 @@ async function signUp(username, fullname, password) {
 async function login(username, password) {
     const payload = JSON.stringify({ "username": username, "password": password })
     const response = await fetch(BASE_URL + "/auth/login", {
-        method: "Post",
-        header: NO_AUTH_HEADERS,
+        method: "POST",
+        headers: NO_AUTH_HEADERS,
         body: payload
     }); // end fetch
 
@@ -44,12 +44,23 @@ async function login(username, password) {
 };
 
 // All the Other need a Token in the Header
-
+function headersWithAuth() {
+    // Same as No Auth but with Auth Added
+    return {
+        ...NO_AUTH_HEADERS,
+        'Authorization': `Bearer ${localStorage.token}`,
+    }
+}
 // Get secure list of messages using token
-
-// response = fetch(URL, {
-//     method: "GET",
-//     headers: {
-//         Authorization: `Bearer ${loginData.token}`
-//     },
-// });
+async function getMessageList() {
+    const LIMIT_PER_PAGE = 1000;
+    const OFFSET_PAGE = 0;
+    const queryString = `?limit=${LIMIT_PER_PAGE}&offset=${OFFSET_PAGE}`
+    const response = await fetch(
+        BASE_URL + "/api/posts" + queryString, {
+        method: "GET",
+        headers: headersWithAuth(),
+    });
+    const object = await response.json();
+    return object;
+};
