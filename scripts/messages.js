@@ -29,8 +29,6 @@ async function getMessage(m) {
     `;
 }
 
-
-
 document.addEventListener("DOMContentLoaded", async () => {
     getLoginStatus();
     const messages = await getMessageList();

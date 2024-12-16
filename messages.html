@@ -22,9 +22,17 @@
     </header>
     <h1>Welcome to The Yapper's Hub</h1>
     <main>
-        <div id="output"></div>
-        <div id="userInfo" style="display: none; border: 1px solid #ccc; padding: 10px; margin: 10px;"></div>
+        <section id="sortingOptions">
+            <label for="sortMessages">Sort Messages By:</label>
+            <select id="sortMessages">
+                <option value="time">Time (Newest First)</option>
+                <option value="timeAsc">Time (Oldest First)</option>
+                <option value="username">Username (A-Z)</option>
+                <option value="usernameDesc">Username (Z-A)</option>
+            </select>
+        </section>
         
+        <div id="output"></div>
     </main>
 </body>
 
