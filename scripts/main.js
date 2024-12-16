@@ -81,43 +81,55 @@ async function getMessageList() {
     return object;
 };
 
-// Add like to the post
-async function addLikes(postId) {
-    if (!localStorage.token) {
-        console.error("User not authenticated. Token missing.");
-        return;
-    }
+async function toggleLikes(postId) {
+    // Fetch the messages to get the full list of posts and likes
+    const messages = await getMessageList();
+    const post = messages.find(p => p._id === postId);  // Find the post by its ID
 
-    const payload = JSON.stringify({
-        postId: postId,
-    });
+    // Check if the current user has liked the post
+    const userLike = post.likes.find(like => like.username === localStorage.username); // Find the like by the user
 
-    try {
-        console.log(`Sending like for post ID: ${postId}`);
-
-        const response = await fetch(BASE_URL + "/api/likes", {
+    let response;
+    if (userLike) {
+        // If the user has already liked the post, remove the like
+        const likeId = userLike._id; 
+        response = await fetch(BASE_URL + `/api/likes/${likeId}`, {
+            method: "DELETE",
+            headers: headersWithAuth(),
+        });
+    } else {
+        // If the user hasn't liked the post yet, add a like
+        const payload = JSON.stringify({ postId });
+        response = await fetch(BASE_URL + "/api/likes", {
             method: "POST",
             headers: headersWithAuth(),
             body: payload,
         });
-
-        if (response.status === 201) {
-            const message = await response.json();
-            console.log("Like added successfully:", message);
-            updateLikeCount(message)
-        } else {
-            console.error("Failed to add like:", response.statusText);
-        }
-    } catch (error) {
-        console.error("Network error:", error);
     }
+        
+    if (response.status === 200 || response.status === 201) {
+        const updatedMessages = await getMessageList(); 
+        output.innerHTML = updatedMessages.map(getMessage).join("<hr>");  // Re-render the messages
+    } 
 }
 
-async function createMessage(subject, message){
+
+
+async function removeLikes(likeId){
+    const payload = JSON.stringify({
+        likeId: likeId,
+    });
+    const response = await fetch(BASE_URL + "api/likes/${likeId}", {
+        method : "DELETE",
+        headers : headersWithAuth(),
+        body: payload,
+    });
+}
+
+async function createMessage(message){
     // Payload to send to the API
     const payload = JSON.stringify({
         text: message,
-        subject: subject,
     });
     const response = await fetch(BASE_URL + "/api/posts", {
         method : "POST",

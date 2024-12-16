@@ -1,21 +1,17 @@
 function getMessage(m) {
+    const userHasLiked = m.likes.some(like => like.username === localStorage.username);
     return `
     <div data-post_id="${m._id}" class="message">
         From: ${m.username}<br>
         When: ${timeAgo(m.createdAt)}<br>
         Text: ${m.text}<br>
         Likes: <span class="like-count">${m.likes.length}</span><br>
-        <button class="likeBtn" data-post_id="${m._id}">Like</button>
+                <button class="likeBtn" data-post_id="${m._id}">
+            ${userHasLiked ? 'Unlike' : 'Like'}
+        </button>
     </div>
     `;
 }
-
-// Update the like count after a successful like
-function updateLikeCount(message) {
-    const messageElement = document.querySelector(`[data-post_id="${message._id}"]`);
-    const likeCountElement = messageElement.querySelector('.like-count');
-    likeCountElement.textContent = message.likes.length;  // Update the like count
-};
 
 document.addEventListener("DOMContentLoaded", async () => {
     getLoginStatus();
@@ -28,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     likeButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
             const postId = event.target.dataset.post_id;  // Get the post ID from the clicked button
-            await addLikes(postId);  // Call the addLikes function to handle the like
+            await toggleLikes(postId);  // Call the addLikes function to handle the like
             window.location.reload();
         });
     });
