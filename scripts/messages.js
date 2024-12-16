@@ -2,7 +2,7 @@ function getMessage(m) {
     return `
     <div data-post_id="${m._id}" class="message">
         From: ${m.username}<br>
-        When: ${m.createdAt}<br>
+        When: ${timeAgo(m.createdAt)}<br>
         Text: ${m.text}<br>
         Likes: <span class="like-count">${m.likes.length}</span><br>
         <button class="likeBtn" data-post_id="${m._id}">Like</button>

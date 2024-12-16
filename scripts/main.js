@@ -113,8 +113,6 @@ async function addLikes(postId) {
     }
 }
 
-
-
 async function createMessage(subject, message){
     // Payload to send to the API
     const payload = JSON.stringify({
@@ -130,3 +128,23 @@ async function createMessage(subject, message){
     return object;
 };
 
+// Calculate the difference between the current time and time posted
+function timeAgo(dateString) {
+    const now = new Date();
+    const postDate = new Date(dateString);
+    const diffInSeconds = Math.floor((now - postDate) / 1000);
+
+    const minutes = Math.floor(diffInSeconds / 60);
+    const hours = Math.floor(diffInSeconds / 3600);
+    const days = Math.floor(diffInSeconds / (3600 * 24));
+
+    if (minutes < 1) {
+        return "Just now";
+    } else if (minutes < 60) {
+        return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else if (hours < 24) {
+        return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else {
+        return `${days} day${days > 1 ? 's' : ''} ago`;
+    }
+}
