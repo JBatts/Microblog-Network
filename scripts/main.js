@@ -81,6 +81,40 @@ async function getMessageList() {
     return object;
 };
 
+// Add like to the post
+async function addLikes(postId) {
+    if (!localStorage.token) {
+        console.error("User not authenticated. Token missing.");
+        return;
+    }
+
+    const payload = JSON.stringify({
+        postId: postId,
+    });
+
+    try {
+        console.log(`Sending like for post ID: ${postId}`);
+
+        const response = await fetch(BASE_URL + "/api/likes", {
+            method: "POST",
+            headers: headersWithAuth(),
+            body: payload,
+        });
+
+        if (response.status === 201) {
+            const message = await response.json();
+            console.log("Like added successfully:", message);
+            updateLikeCount(message)
+        } else {
+            console.error("Failed to add like:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Network error:", error);
+    }
+}
+
+
+
 async function createMessage(subject, message){
     // Payload to send to the API
     const payload = JSON.stringify({
