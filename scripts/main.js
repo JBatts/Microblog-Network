@@ -155,23 +155,31 @@ async function getUserInfo(username) {
     };
 };
 
-function displayUserInfo(user) {
-    // Get the user info section
-    const userInfoSection = document.getElementById('userInfo');
-
-    // Clear previous content and make it visible
-    userInfoSection.innerHTML = `
-        <h3>User Information</h3>
-        <p><strong>Username:</strong> ${user.username}</p>
-        <p><strong>Full Name:</strong> ${user.fullName}</p>
-        <p><strong>Bio:</strong> ${user.bio || "No bio available."}</p>
-        <p><strong>Joined:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
-        <button id="closeProfileBtn">Close</button>
-    `;
-    userInfoSection.style.display = "block";
-
-    // Add an event listener to the "Close" button to hide the section
-    document.getElementById('closeProfileBtn').addEventListener('click', () => {
-        userInfoSection.style.display = "none";
+async function getUserPosts(username) {
+    const response = await fetch(BASE_URL + "/api/posts", {
+        method: "GET",
+        headers: headersWithAuth(),
     });
+
+    if (response.status === 200) {
+        const posts = await response.json();
+        return posts.filter(post => post.username === username); // Filter posts by username
+    } else {
+        console.error("Failed to fetch user posts:", response.statusText);
+        return [];
+    }
+}
+
+async function getUserProfile(username) {
+    const response = await fetch(BASE_URL + `/api/users/${username}`, {
+        method: "GET",
+        headers: headersWithAuth(),
+    });
+
+    if (response.status === 200) {
+        return response.json();
+    } else {
+        console.error("Failed to fetch user profile:", response.statusText);
+        return null;
+    }
 }
