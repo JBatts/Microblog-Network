@@ -15,14 +15,30 @@ function displayUserPosts(posts) {
         postsContainer.innerHTML = "<p>You haven't posted anything yet!</p>";
     } else {
         postsContainer.innerHTML = posts.map(post => `
-                <div class="post">
+                <div class="post" data-post-id="${post._id}">
                     <p><strong>When:</strong> ${timeAgo(post.createdAt)}</p>
                     <p>${post.text}</p>
                     <p><strong>Likes:</strong> ${post.likes.length}</p>
+                    <button class="deletePostBtn" data-post-id="${post._id}">Delete Post</button>
                 </div>
                 <hr>
             `).join("");
     };
+    document.querySelectorAll(".deletePostBtn").forEach(btn => {
+        btn.addEventListener("click", async (e)=>{
+            const postId = e.target.getAttribute("data-post-id");
+            const confirmed = confirm("Are you sure you want to delete this post?");
+            if(confirmed) {
+                const success = await deletePost(postId);
+                if(success) {
+                    alert("Post deleted successfully.");
+                    location.reload();
+                } else {
+                    alert("Failed to delete the post. Please try again.")
+                };
+            };
+        });
+    });
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -55,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     cancelEdit.addEventListener("click", () => {
         editProfileModal.style.display = "none";
     });
-    
+
     editProfileForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 

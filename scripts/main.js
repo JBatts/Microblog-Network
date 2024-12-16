@@ -192,10 +192,23 @@ async function updateUserProfile(username, updates) {
     });
 
     if(response.status === 200) {
-        const updatedUser = await response.json();
         return true;
     } else {
         console.error("Failed to fetch user profile:", response.statusText);
         return false;
-    }
-}
+    };
+};
+
+async function deletePost(postId) {
+    const response = await fetch(BASE_URL + `/api/posts/${postId}`, {
+        method: "DELETE",
+        headers: headersWithAuth(),
+    });
+
+    if(response.status === 202){
+        console.log("Your post has been deleted");
+        return true;
+    } else {
+        console.error("Failed to delete post:", response.statusText);
+    };
+};
