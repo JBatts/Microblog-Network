@@ -167,8 +167,8 @@ async function getUserPosts(username) {
     } else {
         console.error("Failed to fetch user posts:", response.statusText);
         return [];
-    }
-}
+    };
+};
 
 async function getUserProfile(username) {
     const response = await fetch(BASE_URL + `/api/users/${username}`, {
@@ -181,5 +181,21 @@ async function getUserProfile(username) {
     } else {
         console.error("Failed to fetch user profile:", response.statusText);
         return null;
+    };
+};
+
+async function updateUserProfile(username, updates) {
+    const response = await fetch(BASE_URL + `/api/users/${username}`, {
+        method: "PUT",
+        headers: headersWithAuth(),
+        body: JSON.stringify(updates),
+    });
+
+    if(response.status === 200) {
+        const updatedUser = await response.json();
+        return true;
+    } else {
+        console.error("Failed to fetch user profile:", response.statusText);
+        return false;
     }
 }
