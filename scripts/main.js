@@ -43,6 +43,22 @@ async function login(username, password) {
     return object;
 };
 
+async function logOut(){
+    const response = await fetch(BASE_URL + "/auth/logout", {
+        method: "GET",
+    });
+    const object = await response.json();
+    return object;
+}
+
+function getLoginStatus(){
+    console.log("Current localStorage:", localStorage)
+    if(!localStorage.token){
+        alert(`You must log in to access this page!`);
+        window.location.href = "login.html";
+        return;
+    };
+}
 // All the Other need a Token in the Header
 function headersWithAuth() {
     // Same as No Auth but with Auth Added
@@ -78,4 +94,5 @@ async function createMessage(subject, message){
     });
     const object = await response.json();
     return object;
-}
+};
+

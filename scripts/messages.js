@@ -11,7 +11,7 @@ function getMessage(m){
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-
+    getLoginStatus()
     const messages = await getMessageList();
     output.innerHTML = messages.map(getMessage).join("<hr>\n");
 
