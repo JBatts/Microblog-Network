@@ -64,3 +64,18 @@ async function getMessageList() {
     const object = await response.json();
     return object;
 };
+
+async function createMessage(subject, message){
+    // Payload to send to the API
+    const payload = JSON.stringify({
+        text: message,
+        subject: subject,
+    });
+    const response = await fetch(BASE_URL + "/api/posts", {
+        method : "POST",
+        headers: headersWithAuth(),
+        body: payload
+    });
+    const object = await response.json();
+    return object;
+}
