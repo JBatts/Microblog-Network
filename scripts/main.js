@@ -43,30 +43,23 @@ async function login(username, password) {
     return object;
 };
 
-async function logOut(){
-    const response = await fetch(BASE_URL + "/auth/logout", {
-        method: "GET",
-    });
-    const object = await response.json();
-    return object;
-}
-
-function getLoginStatus(){
+function getLoginStatus() {
     console.log("Current localStorage:", localStorage)
-    if(!localStorage.token){
+    if (!localStorage.token) {
         alert(`You must log in to access this page!`);
         window.location.href = "login.html";
         return;
     };
 }
-// All the Other need a Token in the Header
+
+// Same as No Auth but with Auth Added
 function headersWithAuth() {
-    // Same as No Auth but with Auth Added
     return {
         ...NO_AUTH_HEADERS,
         'Authorization': `Bearer ${localStorage.token}`,
     }
 }
+
 // Get secure list of messages using token
 async function getMessageList() {
     const LIMIT_PER_PAGE = 1000;
@@ -92,7 +85,7 @@ async function toggleLikes(postId) {
     let response;
     if (userLike) {
         // If the user has already liked the post, remove the like
-        const likeId = userLike._id; 
+        const likeId = userLike._id;
         response = await fetch(BASE_URL + `/api/likes/${likeId}`, {
             method: "DELETE",
             headers: headersWithAuth(),
@@ -106,33 +99,20 @@ async function toggleLikes(postId) {
             body: payload,
         });
     }
-        
+
     if (response.status === 200 || response.status === 201) {
-        const updatedMessages = await getMessageList(); 
+        const updatedMessages = await getMessageList();
         output.innerHTML = updatedMessages.map(getMessage).join("<hr>");  // Re-render the messages
-    } 
+    }
 }
 
-
-
-async function removeLikes(likeId){
-    const payload = JSON.stringify({
-        likeId: likeId,
-    });
-    const response = await fetch(BASE_URL + "api/likes/${likeId}", {
-        method : "DELETE",
-        headers : headersWithAuth(),
-        body: payload,
-    });
-}
-
-async function createMessage(message){
+async function createMessage(message) {
     // Payload to send to the API
     const payload = JSON.stringify({
         text: message,
     });
     const response = await fetch(BASE_URL + "/api/posts", {
-        method : "POST",
+        method: "POST",
         headers: headersWithAuth(),
         body: payload
     });
@@ -158,5 +138,40 @@ function timeAgo(dateString) {
         return `${hours} hour${hours > 1 ? 's' : ''} ago`;
     } else {
         return `${days} day${days > 1 ? 's' : ''} ago`;
-    }
+    };
+};
+
+async function getUserInfo(username) {
+    const response = await fetch(BASE_URL + `/api/users/${username}`, {
+        method: "GET",
+        headers: headersWithAuth(),
+    });
+
+    if (response.status === 200) {
+        const user = await response.json(); // Convert response to JSON
+        displayUserInfo(user); // Call a function to display the user's information
+    } else {
+        alert("User not found or an error occurred.");
+    };
+};
+
+function displayUserInfo(user) {
+    // Get the user info section
+    const userInfoSection = document.getElementById('userInfo');
+
+    // Clear previous content and make it visible
+    userInfoSection.innerHTML = `
+        <h3>User Information</h3>
+        <p><strong>Username:</strong> ${user.username}</p>
+        <p><strong>Full Name:</strong> ${user.fullName}</p>
+        <p><strong>Bio:</strong> ${user.bio || "No bio available."}</p>
+        <p><strong>Joined:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
+        <button id="closeProfileBtn">Close</button>
+    `;
+    userInfoSection.style.display = "block";
+
+    // Add an event listener to the "Close" button to hide the section
+    document.getElementById('closeProfileBtn').addEventListener('click', () => {
+        userInfoSection.style.display = "none";
+    });
 }
