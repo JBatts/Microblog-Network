@@ -1,10 +1,13 @@
 // Display user profile information
 function displayUserProfile(user) {
     greeting.textContent = `Hello, ${user.fullName || user.username}!`;
-    profileInfo.innerHTML = `
-        <p><strong>Username:</strong> ${user.username}</p>
-        <p><strong>Full Name:</strong> ${user.fullName || "Not provided"}</p>
-        <p><strong>Bio:</strong> ${user.bio || "No bio available."}</p>
+    const gravatarUrl = getGravatarUrl(user.email, 150);  
+    profileContainer.innerHTML = `
+        <div class="profile">
+            <img src="${gravatarUrl}" alt="Profile Picture" class="gravatar"/>
+            <h2>${user.fullName}</h2>
+            <p>Username: ${user.username}</p>
+            <p>Bio: ${user.bio || "No bio available"}</p>
         <p><strong>Joined:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
     `;
 };

@@ -13,19 +13,21 @@ async function getMessage(m) {
     }
 
     // Return the post with user info included
+    const gravatarUrl = getGravatarUrl(m.email, 100); // Pass user email  
     return `
-    <div data-post_id="${m._id}" class="message">
-        <div class="user-profile">
-            <strong>${userInfo.fullName}</strong> (${m.username})<br>
-            <em>${userInfo.bio}</em>
+        <div data-post_id="${m._id}" class="message">
+            <div class="user-profile">
+                <img src="${gravatarUrl}" alt="Profile Picture" class="gravatar"/>
+                <strong>${userInfo.fullName}</strong> (${m.username})<br>
+                <em>${userInfo.bio}</em>
+            </div>
+            <div class="post-content">
+                When: ${timeAgo(m.createdAt)}<br>
+                Text: ${m.text}<br>
+                Likes: <span class="like-count">${m.likes.length}</span><br>
+                <button class="likeBtn" data-post_id="${m._id}">Like</button>
+            </div>
         </div>
-        <div class="post-content">
-            When: ${timeAgo(m.createdAt)}<br>
-            Text: ${m.text}<br>
-            Likes: <span class="like-count">${m.likes.length}</span><br>
-            <button class="likeBtn" data-post_id="${m._id}">Like</button>
-        </div>
-    </div>
     `;
 };
 
