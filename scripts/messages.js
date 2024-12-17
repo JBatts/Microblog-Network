@@ -12,8 +12,9 @@ async function getMessage(m) {
         userInfo = { fullName: "Unknown", bio: "No bio available" };
     }
 
-    // Return the post with user info included
-    const gravatarUrl = getGravatarUrl(m.email, 100); // Pass user email  
+    // Generate the Gravatar URL using the user's email
+    const gravatarUrl = getGravatarUrl(m.username, 100); // Pass user email  
+    
     return `
         <div data-post_id="${m._id}" class="message">
             <div class="user-profile">
@@ -29,7 +30,8 @@ async function getMessage(m) {
             </div>
         </div>
     `;
-};
+}
+
 
 
 document.addEventListener("DOMContentLoaded", async () => {

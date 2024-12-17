@@ -2,6 +2,14 @@ const BASE_URL = "http://microbloglite.us-east-2.elasticbeanstalk.com"
 const NO_AUTH_HEADERS = { 'accept': 'application/json', 'Content-Type': 'application/json' };
 // Insecure Token Free Actions (Only 2)
 
+function getGravatarUrl(email, size = 100) {
+    // Step 1: Hash the email address using SHA-256.
+    const hashedEmail = CryptoJS.SHA256(email.trim().toLowerCase()).toString(CryptoJS.enc.Hex);
+    // Step 2: Construct the Gravatar URL using the hashed email.
+    return `https://www.gravatar.com/avatar/${hashedEmail}?s=${size}`;
+};
+
+
 // Create user - sign up
 async function signUp(username, fullName, password) {
     const payload = JSON.stringify(

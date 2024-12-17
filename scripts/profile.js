@@ -1,8 +1,8 @@
 // Display user profile information
 function displayUserProfile(user) {
     greeting.textContent = `Hello, ${user.fullName || user.username}!`;
-    const gravatarUrl = getGravatarUrl(user.email, 150);  
-    profileContainer.innerHTML = `
+    const gravatarUrl = getGravatarUrl(user.username, 150);  
+    profileInfo.innerHTML = `
         <div class="profile">
             <img src="${gravatarUrl}" alt="Profile Picture" class="gravatar"/>
             <h2>${user.fullName}</h2>
