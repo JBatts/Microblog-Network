@@ -18,7 +18,7 @@ async function getMessage(m) {
     return `
         <div data-post_id="${m._id}" class="message">
             <div class="user-profile">
-                <img src="${gravatarUrl}" alt="Profile Picture" class="gravatar"/>
+                <img src="${gravatarUrl}" alt="Profile Picture" class="gravatar"/><br>
                 <strong>${userInfo.fullName}</strong> (${m.username})<br>
                 <em>${userInfo.bio}</em>
             </div>

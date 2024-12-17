@@ -1,0 +1,10 @@
+body{
+    text-align: center;
+    background-color: rgb(218, 208, 208);
+}
+a{
+    padding: 1rem;
+    background-color: red;
+    margin: 1rem;
+    border-radius: 2rem;
+}
