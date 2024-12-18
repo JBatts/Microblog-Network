@@ -106,13 +106,13 @@ async function toggleLikes(postId) {
             headers: headersWithAuth(),
             body: payload,
         });
-    }
+    };
 
     if (response.status === 200 || response.status === 201) {
         const updatedMessages = await getMessageList();
         output.innerHTML = updatedMessages.map(getMessage).join("<hr>");  // Re-render the messages
-    }
-}
+    };
+};
 
 async function createMessage(message) {
     // Payload to send to the API
