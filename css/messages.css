@@ -1,0 +1,14 @@
+.likeBtn img {
+    width: 20px; /* Adjust size as needed */
+    height: auto;
+    display: block;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.likeBtn {
+    padding: 0; /* Remove extra padding */
+    background: none; /* Remove default styles */
+    border: none;
+}

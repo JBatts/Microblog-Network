@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             alert("Profile updated successfully!");
             location.reload(); // Refresh the page to show updated data
         } else {
-            alert("Failed to update profile. Please try again.");
+            alert("Failed to update profile. Please fill out all inputs and try again.");
         }
     });
 });

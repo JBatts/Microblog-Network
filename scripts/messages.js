@@ -26,7 +26,9 @@ async function getMessage(m) {
                 When: ${timeAgo(m.createdAt)}<br>
                 Text: ${m.text}<br>
                 Likes: <span class="like-count">${m.likes.length}</span><br>
-                <button class="likeBtn" data-post_id="${m._id}">Like</button>
+                <button class="likeBtn" data-post_id="${m._id}">
+                <img src="./img/heart.png" alt="heart">
+                </button>
             </div>
         </div>
     `;
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const likeButtons = document.querySelectorAll('.likeBtn');
         likeButtons.forEach(button => {
             button.addEventListener('click', async (event) => {
-                const postId = event.target.dataset.post_id;  // Get the post ID from the clicked button
+                const postId = button.dataset.post_id;  // Get the post ID from the clicked button
                 await toggleLikes(postId);  // Call the addLikes function to handle the like
                 window.location.reload();
             });
