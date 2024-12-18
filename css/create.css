@@ -1,0 +1,6 @@
+textarea#message{
+    width: 50vw;
+    height: 15vw;
+    padding: 1rem;
+    border-radius: 2rem;
+}

@@ -4,7 +4,7 @@ body{
 }
 
 nav{
-    margin-top: 35px;
+    margin: 35px 0;
 }
 
 .nav-links{
@@ -12,6 +12,7 @@ nav{
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+    
 }
 
 a{
@@ -19,16 +20,19 @@ a{
     background-color: red;
     border-radius: 2rem;
     text-decoration: none;
+    color: black;
 }
 
 a:hover{
     text-decoration: underline;
     background-color: white;
+    color: blue;
 }
 
 .selected{
     text-decoration: underline;
     background-color: white;
+    color: blue;
 }
 
 .gravatar{
@@ -41,7 +45,15 @@ button{
     border-radius: 2rem;
 }
 
+button:hover{
+    background-color: white;
+    border: 3px solid black;
+}
+
 input{
     width: 30%;
     padding: .5rem;
+    border-radius: .9rem;
+    text-align: center;
 }
+

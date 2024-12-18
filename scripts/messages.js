@@ -16,25 +16,26 @@ async function getMessage(m) {
     const gravatarUrl = getGravatarUrl(m.username, 100); // Pass user email  
     
     return `
-        <div data-post_id="${m._id}" class="message">
-            <div class="user-profile">
-                <img src="${gravatarUrl}" alt="Profile Picture" class="gravatar"/><br>
-                <strong>${userInfo.fullName}</strong> (${m.username})<br>
-                <em>${userInfo.bio}</em>
-            </div>
-            <div class="post-content">
-                When: ${timeAgo(m.createdAt)}<br>
-                Text: ${m.text}<br>
-                Likes: <span class="like-count">${m.likes.length}</span><br>
-            <button class="likeBtn" data-post_id="${m._id}">
-                <img src="${m.likes.some(like => like.username === localStorage.username) 
-                   ?  './img/heart.png'
-                   : './img/emptyHeart.png'}" alt="heart">
-            </button>
+        <div class="col-md-6 mb-4">
+            <div data-post_id="${m._id}" class="card">
+                <img src="${gravatarUrl}" alt="Profile Picture" class="card-img-top gravatar">
+                <div class="card-body">
+                    <h5 class="card-title">${userInfo.fullName} <br>(${m.username})</h5>
+                    <p class="card-text">${userInfo.bio}</p>
+                    <p class="card-text">When: ${timeAgo(m.createdAt)}</p>
+                    <p class="card-text">Text: ${m.text}</p>
+                    <p class="card-text">Likes: <span class="like-count">${m.likes.length}</span></p>
+                    <button class="likeBtn btn btn-outline-primary" data-post_id="${m._id}">
+                        <img src="${m.likes.some(like => like.username === localStorage.username) 
+                           ?  './img/heart.png'
+                           : './img/emptyHeart.png'}" alt="heart">
+                    </button>
+                </div>
             </div>
         </div>
     `;
 }
+
 
 
 
@@ -45,23 +46,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Map posts to include user profile info
     const postHTMLPromises = messages.map(getMessage);
     const postHTMLArray = await Promise.all(postHTMLPromises);
-    output.innerHTML = postHTMLArray.join("<hr>");
+    output.innerHTML = `
+    <div class="container">
+        <div class="row">
+            ${postHTMLArray.join("")}
+        </div>
+    </div>
+`;
     
-    async function renderMessages() {
-        const postHTMLPromises = messages.map(getMessage);
-        const postHTMLArray = await Promise.all(postHTMLPromises);
-        output.innerHTML = postHTMLArray.join("<hr>");
+async function renderMessages() {
+    const postHTMLPromises = messages.map(getMessage);
+    const postHTMLArray = await Promise.all(postHTMLPromises);
 
-        // Like buttons 
-        const likeButtons = document.querySelectorAll('.likeBtn');
-        likeButtons.forEach(button => {
-            button.addEventListener('click', async (event) => {
-                const postId = button.dataset.post_id;  // Get the post ID from the clicked button
-                await toggleLikes(postId);  // Call the addLikes function to handle the like
-                window.location.reload();
-            });
+    const output = document.getElementById('output');
+    
+    // Wrap the posts in a Bootstrap container and row to create a proper grid
+    output.innerHTML = `
+        <div class="container">
+            <div class="row">
+                ${postHTMLArray.join("")}
+            </div>
+        </div>
+    `;
+    
+    // Like buttons 
+    const likeButtons = document.querySelectorAll('.likeBtn');
+    likeButtons.forEach(button => {
+        button.addEventListener('click', async (event) => {
+            const postId = button.dataset.post_id;  // Get the post ID from the clicked button
+            await toggleLikes(postId);  // Call the addLikes function to handle the like
+            window.location.reload();
         });
-    };
+    });
+};
     sortMessages.addEventListener("change", () => {
         const sortValue = sortMessages.value;
         if (sortValue === "time") {
