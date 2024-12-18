@@ -4,13 +4,19 @@ body{
 }
 
 nav{
-    margin: 50px;
+    margin-top: 35px;
+}
+
+.nav-links{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 a{
     padding: 1rem;
     background-color: red;
-    margin: 1rem;
     border-radius: 2rem;
     text-decoration: none;
 }
