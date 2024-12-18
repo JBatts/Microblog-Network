@@ -18,25 +18,29 @@
 /* Container for centering the row */
 .container {
     display: flex;
-    justify-content: center; /* Center the row horizontally */
-    width: 100%; /* Ensure container takes full width */
-    padding: 0 15px; /* Optional: add some padding for aesthetics */
+    justify-content: center; 
+    width: 100%; 
+    padding: 0 15px; 
 }
 
 /* Grid layout for the row */
 .row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr)); /* Two cards per row */
+    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr)); 
     gap: 1rem;
-    justify-content: center; /* Center the grid items horizontally */
-    justify-items: center; /* Align grid items (cards) in the center */
-    width: 100%; /* Ensure the row takes full width of the container */
+    justify-content: center; 
+    justify-items: center; 
+    width: 100%; 
 }
 
-/* Ensure the cards fill the available space */
 .card {
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center card content */
+    align-items: center; 
+    opacity: 92%;
+}
+
+#sortingOptions{
+    margin-bottom: 30px;
 }

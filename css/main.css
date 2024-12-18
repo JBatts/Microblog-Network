@@ -1,6 +1,10 @@
 body{
     text-align: center;
-    background-color: rgb(218, 208, 208);
+    background-image: url("../img/coolBackground.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
 }
 
 nav{
@@ -47,7 +51,7 @@ button{
 
 button:hover{
     background-color: white;
-    border: 3px solid black;
+    border: 4px solid black;
 }
 
 input{
@@ -55,5 +59,6 @@ input{
     padding: .5rem;
     border-radius: .9rem;
     text-align: center;
+    opacity: 92%;
 }
 

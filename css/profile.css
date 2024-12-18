@@ -1,6 +1,39 @@
+
 textarea.custom-textarea{
     width: 30%;
     height: 125px;
     padding: 1rem;
     border-radius: 2rem;
+    opacity: 92%;
 }
+
+/* Styles for the posts */
+.post-card {
+    background-color: white; 
+    padding: 15px;           
+    border-radius: 8px;      
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease-in-out; 
+    margin-left: 50px;
+    margin-right: 50px;
+    color: black;
+    opacity: 92%;
+}
+
+.post-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); 
+}
+
+h2{
+    margin-bottom: 40px;
+}
+
+#userProfile{
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 5rem;
+    margin: 15px 15vw;
+    padding: 20px 0;
+    opacity: 92%;
+}
+

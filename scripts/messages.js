@@ -21,10 +21,10 @@ async function getMessage(m) {
                 <img src="${gravatarUrl}" alt="Profile Picture" class="card-img-top gravatar">
                 <div class="card-body">
                     <h5 class="card-title">${userInfo.fullName} <br>(${m.username})</h5>
-                    <p class="card-text">${userInfo.bio}</p>
-                    <p class="card-text">When: ${timeAgo(m.createdAt)}</p>
-                    <p class="card-text">Text: ${m.text}</p>
-                    <p class="card-text">Likes: <span class="like-count">${m.likes.length}</span></p>
+                    <p class="card-text"><strong>Bio: </strong><br>${userInfo.bio || "No bio available"}</p><hr>
+                    <p class="card-text">${m.text}</p>
+                    <p class="card-text"><strong>Posted ${timeAgo(m.createdAt)}</strong></p>
+                    <p class="card-text"><strong>Total Likes: <span class="like-count">${m.likes.length}</span></strong></p>
                     <button class="likeBtn btn btn-outline-primary" data-post_id="${m._id}">
                         <img src="${m.likes.some(like => like.username === localStorage.username) 
                            ?  './img/heart.png'

@@ -3,4 +3,5 @@ textarea#message{
     height: 15vw;
     padding: 1rem;
     border-radius: 2rem;
+    opacity: 92%;
 }

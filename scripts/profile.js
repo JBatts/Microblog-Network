@@ -6,8 +6,8 @@ function displayUserProfile(user) {
         <div class="profile">
             <img src="${gravatarUrl}" alt="Profile Picture" class="gravatar"/>
             <h2>${user.fullName}</h2>
-            <p>Username: ${user.username}</p>
-            <p>Bio: ${user.bio || "No bio available"}</p>
+            <p><strong>Username: </strong>${user.username}</p>
+            <p><strong>Bio: </strong>${user.bio || "No bio available"}</p>
         <p><strong>Joined:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
     `;
 };
@@ -17,32 +17,40 @@ function displayUserPosts(posts) {
     if (posts.length === 0) {
         postsContainer.innerHTML = "<p>You haven't posted anything yet!</p>";
     } else {
-        postsContainer.innerHTML = posts.map(post => `
-                <div class="post" data-post-id="${post._id}">
-                    <p><strong>When:</strong> ${timeAgo(post.createdAt)}</p>
-                    <p>${post.text}</p>
-                    <p><strong>Likes:</strong> ${post.likes.length}</p>
-                    <button class="deletePostBtn" data-post-id="${post._id}">Delete Post</button>
-                </div>
-                <hr>
-            `).join("");
+        postsContainer.innerHTML = `
+            <div class="row">
+                ${posts.map(post => `
+                    <div class="col-md-6 mb-4">
+                        <div class="post-card post" data-post-id="${post._id}">
+                            <p><strong>When:</strong> ${timeAgo(post.createdAt)}</p>
+                            <p>${post.text}</p>
+                            <p><strong>Likes:</strong> ${post.likes.length}</p>
+                            <button class="deletePostBtn" data-post-id="${post._id}">Delete Post</button>
+                        </div>
+                    </div>
+                `).join("")}
+            </div>
+        `;
     };
+
     document.querySelectorAll(".deletePostBtn").forEach(btn => {
-        btn.addEventListener("click", async (e)=>{
+        btn.addEventListener("click", async (e) => {
             const postId = e.target.getAttribute("data-post-id");
             const confirmed = confirm("Are you sure you want to delete this post?");
-            if(confirmed) {
+            if (confirmed) {
                 const success = await deletePost(postId);
-                if(success) {
+                if (success) {
                     alert("Post deleted successfully.");
                     location.reload();
                 } else {
-                    alert("Failed to delete the post. Please try again.")
+                    alert("Failed to delete the post. Please try again.");
                 };
             };
         });
     });
 };
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     getLoginStatus();
