@@ -26,9 +26,11 @@ async function getMessage(m) {
                 When: ${timeAgo(m.createdAt)}<br>
                 Text: ${m.text}<br>
                 Likes: <span class="like-count">${m.likes.length}</span><br>
-                <button class="likeBtn" data-post_id="${m._id}">
-                <img src="./img/heart.png" alt="heart">
-                </button>
+            <button class="likeBtn" data-post_id="${m._id}">
+                <img src="${m.likes.some(like => like.username === localStorage.username) 
+                   ?  './img/heart.png'
+                   : './img/emptyHeart.png'}" alt="heart">
+            </button>
             </div>
         </div>
     `;
