@@ -24,21 +24,64 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="text-center">
+    <section id="hero" class="text-center bg-dark">
         <div class="container">
             <h1 class="display-4 text-light">Welcome to The Yapper's Hub</h1>
             <p class="lead text-light mb-4">Join our community, share your thoughts, and interact with like-minded individuals!</p>
-            <a href="login.html" class="btn btn-primary btn-lg">Start Yapping</a>
+            <a href="create.html" class="btn btn-primary btn-lg">Start Yapping</a>
         </div>
     </section>
 
-    <main>
-        <section id="postsContainer" class="container mt-5">
-            <!-- Dynamically inserted posts will appear here -->
+    
+    <main> 
+        <h2>The most popular post!</h2>
+        <section id="postsContainer" class="container-fluid mt-5">
+            <!-- Dynamically inserted top 3 posts will appear here -->
         </section>
     </main>
-
-    <footer class="bg-dark text-light text-center py-4">
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class=" bg-dark py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">What Famous People Are Saying</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Person 1">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"The Yapper's Hub is the best place for meaningful conversations!"</p><br>
+                                <footer class="blockquote-footer">John Doe, <cite title="Source Title">Famous Personality</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Person 2">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"A platform where opinions matter and voices are heard."</p><br>
+                                <footer class="blockquote-footer">Jane Smith, <cite title="Source Title">Celebrity</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Person 3">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">"Join the conversation. It is never to late to start yapping Make an impact!"</p><br>
+                                <footer class="blockquote-footer">Richard Roe, <cite title="Source Title">Tech Innovator</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class=" text-light text-center py-4">
         <p>&copy; 2024 The Yapper's Hub | All rights reserved.</p>
     </footer>
 </body>

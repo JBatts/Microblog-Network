@@ -1,3 +1,4 @@
+
 html, body {
     height: 100%; 
     margin: 0;
@@ -76,7 +77,6 @@ input{
 
 /* Hero Section */
 #hero {
-    background: rgba(0, 0, 0, 0.5) url("../img/hero-bg.jpg") center/cover no-repeat;
     padding: 80px 0;
 }
 
@@ -100,5 +100,7 @@ input{
     background-color: #e60073;
 }
 
-
+.text-center{
+    opacity: 85%;
+}
 

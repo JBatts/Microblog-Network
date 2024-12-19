@@ -1,98 +1,63 @@
-async function getMessage(m) {
-    // Fetch user info for the post
-    const response = await fetch(BASE_URL + `/api/users/${m.username}`, {
-        method: "GET",
-        headers: headersWithAuth(),
-    });
-
-    let userInfo = {};
-    if (response.status === 200) {
-        userInfo = await response.json();
-    } else {
-        userInfo = { fullName: "Unknown", bio: "No bio available" };
-    }
-
-    // Generate the Gravatar URL using the user's email
-    const gravatarUrl = getGravatarUrl(m.username, 100); // Pass user email  
-    
-    return `
-        <div class="col-md-6 mb-4">
-            <div data-post_id="${m._id}" class="card">
-                <img src="${gravatarUrl}" alt="Profile Picture" class="card-img-top gravatar">
-                <div class="card-body">
-                    <h5 class="card-title">${userInfo.fullName} <br>(${m.username})</h5>
-                    <p class="card-text"><strong>Bio: </strong><br>${userInfo.bio || "No bio available"}</p><hr>
-                    <p class="card-text">${m.text}</p>
-                    <p class="card-text"><strong>Posted ${timeAgo(m.createdAt)}</strong></p>
-                    <p class="card-text"><strong>Total Likes: <span class="like-count">${m.likes.length}</span></strong></p>
-                    <button id="likeBtn" class="likeBtn btn btn-outline-primary" data-post_id="${m._id}">
-                        <img src="${m.likes.some(like => like.username === localStorage.username) 
-                           ?  './img/heart.png'
-                           : './img/emptyHeart.png'}" alt="heart">
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-
-
-
 document.addEventListener("DOMContentLoaded", async () => {
-    getLoginStatus();
-    const messages = await getMessageList();
-    // Map posts to include user profile info
-    const postHTMLPromises = messages.map(getMessage);
-    const postHTMLArray = await Promise.all(postHTMLPromises);
-    output.innerHTML = `
-    <div class="container">
-        <div class="row">
-            ${postHTMLArray.join("")}
-        </div>
-    </div>
-`;
-    
-async function renderMessages() {
-    const postHTMLPromises = messages.map(getMessage);
-    const postHTMLArray = await Promise.all(postHTMLPromises);
-    
-    // Wrap the posts in a Bootstrap container and row to create a proper grid
-    output.innerHTML = `
-        <div class="container">
-            <div class="row">
-                ${postHTMLArray.join("")}
-            </div>
-        </div>
-    `;
-    
-    // Like buttons 
-    const likeButtons = document.querySelectorAll('.likeBtn');
-    likeButtons.forEach(button => {
-        button.addEventListener('click', async () => {
-            const postId = button.dataset.post_id;
-            await toggleLikes(postId, button);
+    // Define the container
+    const output = document.getElementById("output");
+    const sortMessages = document.getElementById("sortMessages"); // Adjust based on your HTML
+
+    // Fetch posts
+    let posts = await getMessageList();
+
+    // Function to render posts
+    const renderPosts = (posts) => {
+        output.innerHTML = ""; // Clear existing posts
+        posts.forEach(post => {
+            const postElement = document.createElement("div");
+            postElement.innerHTML = `
+                <div data-post_id="${post._id}" class="card">
+                    <img src="${getGravatarUrl(post.username, 100)}" alt="Profile Picture" class="card-img-top gravatar">
+                    <div class="card-body">
+                        <h5 class="card-title">${post.fullName} <br> (${post.username})</h5>
+                        <p class="card-text"><strong>Bio: <br>${post.bio || "No bio available"}</strong></p><hr>
+                        <p class="card-text"><strong>Posted ${timeAgo(post.createdAt)}</strong></p>
+                        <p class="card-text mainText">${post.text}</p>
+                        <p class="card-text"><strong>Likes: <span class="like-count">${post.likes.length}</span></strong></p>
+                        <button class="likeBtn btn btn-outline-primary" data-post_id="${post._id}">
+                            <img src="${post.likes.includes(localStorage.username) ? './img/heart.png' : './img/emptyHeart.png'}" alt="heart">
+                        </button>
+                    </div>
+                </div>
+            `;
+            output.appendChild(postElement);
         });
-    });
-};
+        // Reattach Like button event listeners
+        document.querySelectorAll('.likeBtn').forEach(button => {
+            button.addEventListener('click', async () => {
+                const postId = button.dataset.post_id;
+                await toggleLikes(postId, button);
+            });
+        });
+    };
+
+    // Initial render
+    renderPosts(posts);
+
+    // Sorting functionality
     sortMessages.addEventListener("change", () => {
         const sortValue = sortMessages.value;
+
         if (sortValue === "time") {
-            messages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Newest first
+            posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         } else if (sortValue === "timeAsc") {
-            messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // Oldest first
+            posts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         } else if (sortValue === "username") {
-            messages.sort((a, b) => a.username.localeCompare(b.username)); // A-Z
+            posts.sort((a, b) => a.username.localeCompare(b.username));
         } else if (sortValue === "usernameDesc") {
-            messages.sort((a, b) => b.username.localeCompare(a.username)); // Z-A
+            posts.sort((a, b) => b.username.localeCompare(a.username));
         } else if (sortValue === "lowLikes") {
-            messages.sort((a, b) => a.likes.length - b.likes.length);
-        } else if (sortValue === "mostLikes"){
-            messages.sort((a, b) => b.likes.length - a.likes.length);
+            posts.sort((a, b) => a.likes.length - b.likes.length);
+        } else if (sortValue === "mostLikes") {
+            posts.sort((a, b) => b.likes.length - a.likes.length);
         }
-        renderMessages();
+
+        renderPosts(posts); // Re-render posts after sorting
     });
-    renderMessages(); 
 });
-
-

@@ -15,24 +15,6 @@
     padding: 0;
 }
 
-/* Navigation bar */
-nav.navbar {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.navbar-nav .nav-link {
-    color: white !important;
-    margin: 0 10px;
-    padding: 10px;
-    transition: color 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover {
-    color: #ff1493 !important;
-}
-
-
-
 /* Card styling */
 .card {
     width: 100%; /* Ensure the cards take up the full width of their column */
@@ -56,10 +38,13 @@ nav.navbar {
     font-size: 1.2rem;
     font-weight: bold;
 }
-
 .card-text {
     font-size: 1rem;
     color: #555;
+}
+.mainText{
+    color: black;
+    font-weight: bold;
 }
 
 /* Footer */
@@ -109,4 +94,7 @@ footer p {
     #postsContainer {
         grid-template-columns: 1fr; /* Switch to single column on mobile */
     }
+}
+.bg-dark{
+    opacity: 90%;
 }

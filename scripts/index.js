@@ -12,18 +12,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Set up the post card structure
         postElement.innerHTML = `
-            <div data-post_id="${post._id}" class="card">
-                <img src="${getGravatarUrl(post.username, 100)}" alt="Profile Picture" class="card-img-top gravatar">
-                <div class="card-body">
-                    <h5 class="card-title">${post.username}</h5>
-                    <p class="card-text"><strong>Posted ${timeAgo(post.createdAt)}</strong></p>
-                    <p class="card-text">${post.text}</p>
-                    <p class="card-text"><strong>Likes: <span class="like-count">${post.likes.length}</span></strong></p>
-                    <button class="likeBtn btn btn-outline-primary" data-post_id="${post._id}">
-                        <img src="${post.likes.includes(localStorage.username) ? './img/heart.png' : './img/emptyHeart.png'}" alt="heart">
-                    </button>
+                <div data-post_id="${post._id}" class="card">
+                    <img src="${getGravatarUrl(post.username, 100)}" alt="Profile Picture" class="card-img-top gravatar">
+                    <div class="card-body">
+                        <h5 class="card-title">${post.fullName} <br> (${post.username})</h5>
+                        <p class="card-text"><strong>Bio: <br>${post.bio || "No bio available"}</strong></p><hr>
+                        <p class="card-text"><strong>Posted ${timeAgo(post.createdAt)}</strong></p>
+                        <p class="card-text mainText">${post.text}</p>
+                        <p class="card-text"><strong>Likes: <span class="like-count">${post.likes.length}</span></strong></p>
+                        <button class="likeBtn btn btn-outline-primary" data-post_id="${post._id}">
+                            <img src="${post.likes.includes(localStorage.username) ? './img/heart.png' : './img/emptyHeart.png'}" alt="heart">
+                        </button>
+                    </div>
                 </div>
-            </div>
         `;
 
         // Add the post element to the container
@@ -40,4 +41,5 @@ document.addEventListener("DOMContentLoaded", async () => {
             await toggleLikes(postId, button);
         });
     });
+    
 });

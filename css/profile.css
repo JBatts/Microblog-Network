@@ -36,4 +36,11 @@ h2{
     padding: 20px 0;
     opacity: 92%;
 }
-
+#logOut{
+    width: 35%;
+    margin: auto;
+}
+#logOut:hover{
+    background-color: red;
+    color: white;
+}

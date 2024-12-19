@@ -3,9 +3,7 @@ const NO_AUTH_HEADERS = { 'accept': 'application/json', 'Content-Type': 'applica
 // Insecure Token Free Actions (Only 2)
 
 function getGravatarUrl(email, size = 100) {
-    // Step 1: Hash the email address using SHA-256.
     const hashedEmail = CryptoJS.SHA256(email.trim().toLowerCase()).toString(CryptoJS.enc.Hex);
-    // Step 2: Construct the Gravatar URL using the hashed email.
     return `https://www.gravatar.com/avatar/${hashedEmail}?s=${size}`;
 };
 
@@ -72,15 +70,32 @@ function headersWithAuth() {
 async function getMessageList() {
     const LIMIT_PER_PAGE = 1000;
     const OFFSET_PAGE = 0;
-    const queryString = `?limit=${LIMIT_PER_PAGE}&offset=${OFFSET_PAGE}`
-    const response = await fetch(
-        BASE_URL + "/api/posts" + queryString, {
+    const queryString = `?limit=${LIMIT_PER_PAGE}&offset=${OFFSET_PAGE}`;
+    
+    // Fetch posts
+    const response = await fetch(BASE_URL + "/api/posts" + queryString, {
         method: "GET",
         headers: headersWithAuth(),
     });
-    const object = await response.json();
-    return object;
-};
+    const posts = await response.json();
+
+    // Fetch user information for each post
+    const postsWithUserInfo = await Promise.all(posts.map(async (post) => {
+        const userResponse = await fetch(BASE_URL + `/api/users/${post.username}`, {
+            method: "GET",
+            headers: headersWithAuth(),
+        });
+        
+        const userInfo = await userResponse.json();
+        post.fullName = userInfo.fullName || "Unknown";
+        post.bio = userInfo.bio || "No bio available";
+        
+        return post;
+    }));
+
+    return postsWithUserInfo;
+}
+
 
 async function toggleLikes(postId, button) {
     const isLiked = button.querySelector('img').src.includes('heart.png');
@@ -222,6 +237,7 @@ async function deletePost(postId) {
         console.error("Failed to delete post:", response.statusText);
     };
 };
+
 
 document.addEventListener("DOMContentLoaded", ()=>{
     if (localStorage.token) {
