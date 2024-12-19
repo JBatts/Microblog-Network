@@ -42,7 +42,6 @@ async function getMessage(m) {
 document.addEventListener("DOMContentLoaded", async () => {
     getLoginStatus();
     const messages = await getMessageList();
-    const output = document.getElementById('output');
     // Map posts to include user profile info
     const postHTMLPromises = messages.map(getMessage);
     const postHTMLArray = await Promise.all(postHTMLPromises);
@@ -57,8 +56,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function renderMessages() {
     const postHTMLPromises = messages.map(getMessage);
     const postHTMLArray = await Promise.all(postHTMLPromises);
-
-    const output = document.getElementById('output');
     
     // Wrap the posts in a Bootstrap container and row to create a proper grid
     output.innerHTML = `

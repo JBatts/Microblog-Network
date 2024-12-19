@@ -41,6 +41,11 @@
     opacity: 92%;
 }
 
+.card:hover {
+    transform: translateY(-10px); /* Lift the card on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
 #sortingOptions{
     margin-bottom: 30px;
 }

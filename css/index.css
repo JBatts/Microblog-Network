@@ -1,0 +1,112 @@
+/* Like button styles */
+.likeBtn img {
+    width: 20px;
+    height: auto;
+    display: block;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.likeBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Navigation bar */
+nav.navbar {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin: 0 10px;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ff1493 !important;
+}
+
+
+
+/* Card styling */
+.card {
+    width: 100%; /* Ensure the cards take up the full width of their column */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 50px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-body {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Footer */
+footer {
+    background-color: #000;
+    color: #fff;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        width: 90%;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+
+    #hero p {
+        font-size: 1rem;
+    }
+}
+
+#postsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
+    gap: 20px; /* Add spacing between the columns */
+    margin-top: 30px;
+}
+.gravatar {
+    border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    margin: auto;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    #postsContainer {
+        grid-template-columns: 1fr; /* Switch to single column on mobile */
+    }
+}
