@@ -89,6 +89,10 @@ async function renderMessages() {
             messages.sort((a, b) => a.username.localeCompare(b.username)); // A-Z
         } else if (sortValue === "usernameDesc") {
             messages.sort((a, b) => b.username.localeCompare(a.username)); // Z-A
+        } else if (sortValue === "lowLikes") {
+            messages.sort((a, b) => a.likes.length - b.likes.length);
+        } else if (sortValue === "mostLikes"){
+            messages.sort((a, b) => b.likes.length - a.likes.length);
         }
         renderMessages();
     });

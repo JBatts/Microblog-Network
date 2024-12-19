@@ -220,3 +220,14 @@ async function deletePost(postId) {
         console.error("Failed to delete post:", response.statusText);
     };
 };
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    if (localStorage.token) {
+        loginHtml.style.display = "none"
+        regHtml.style.display = "none"
+    } else {
+        createHtml.style.display = "none"
+        postHtml.style.display = "none"
+        profileHtml.style.display = "none"
+    }
+});
