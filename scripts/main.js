@@ -82,37 +82,39 @@ async function getMessageList() {
     return object;
 };
 
-async function toggleLikes(postId) {
-    // Fetch the messages to get the full list of posts and likes
-    const messages = await getMessageList();
-    const post = messages.find(p => p._id === postId);  // Find the post by its ID
-
-    // Check if the current user has liked the post
-    const userLike = post.likes.find(like => like.username === localStorage.username); // Find the like by the user
-
+async function toggleLikes(postId, button) {
+    const isLiked = button.querySelector('img').src.includes('heart.png');
     let response;
-    if (userLike) {
-        // If the user has already liked the post, remove the like
-        const likeId = userLike._id;
+
+    if (isLiked) {
+        // Unlike the post
+        const messages = await getMessageList();
+        const post = messages.find(p => p._id === postId);
+        const likeId = post.likes.find(like => like.username === localStorage.username)._id;
         response = await fetch(BASE_URL + `/api/likes/${likeId}`, {
             method: "DELETE",
             headers: headersWithAuth(),
         });
     } else {
-        // If the user hasn't liked the post yet, add a like
+        // Like the post
         const payload = JSON.stringify({ postId });
         response = await fetch(BASE_URL + "/api/likes", {
             method: "POST",
             headers: headersWithAuth(),
             body: payload,
         });
-    };
+    }
 
-    if (response.status === 200 || response.status === 201) {
-        const updatedMessages = await getMessageList();
-        output.innerHTML = updatedMessages.map(getMessage).join("<hr>");  // Re-render the messages
-    };
-};
+    if (response.ok) {
+        // Update the like count and toggle button image
+        const likeCountElement = button.parentElement.querySelector('.like-count');
+        const currentLikes = parseInt(likeCountElement.textContent);
+        likeCountElement.textContent = isLiked ? currentLikes - 1 : currentLikes + 1;
+
+        button.querySelector('img').src = isLiked ? './img/emptyHeart.png' : './img/heart.png';
+    }
+}
+
 
 async function createMessage(message) {
     // Payload to send to the API

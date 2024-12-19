@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const message = document.getElementById("message").value;
         if (!message) {
+            feedback.style.display = "block"
+            feedback.style.color = "red";
             feedback.innerText = `Please fill out all fields.`
             return;
         };
@@ -14,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (result.error) {
             feedback.textContent = `Error: ${result.error}`;
         } else {
+            feedback.style.display = "block"
             feedback.style.color = "green";
             feedback.innerText = "Message posted successfully!";
             postForm.reset(); // Clear the form

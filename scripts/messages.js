@@ -25,7 +25,7 @@ async function getMessage(m) {
                     <p class="card-text">${m.text}</p>
                     <p class="card-text"><strong>Posted ${timeAgo(m.createdAt)}</strong></p>
                     <p class="card-text"><strong>Total Likes: <span class="like-count">${m.likes.length}</span></strong></p>
-                    <button class="likeBtn btn btn-outline-primary" data-post_id="${m._id}">
+                    <button id="likeBtn" class="likeBtn btn btn-outline-primary" data-post_id="${m._id}">
                         <img src="${m.likes.some(like => like.username === localStorage.username) 
                            ?  './img/heart.png'
                            : './img/emptyHeart.png'}" alt="heart">
@@ -72,10 +72,9 @@ async function renderMessages() {
     // Like buttons 
     const likeButtons = document.querySelectorAll('.likeBtn');
     likeButtons.forEach(button => {
-        button.addEventListener('click', async (event) => {
-            const postId = button.dataset.post_id;  // Get the post ID from the clicked button
-            await toggleLikes(postId);  // Call the addLikes function to handle the like
-            window.location.reload();
+        button.addEventListener('click', async () => {
+            const postId = button.dataset.post_id;
+            await toggleLikes(postId, button);
         });
     });
 };

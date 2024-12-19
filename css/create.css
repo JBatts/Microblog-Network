@@ -4,4 +4,15 @@ textarea#message{
     padding: 1rem;
     border-radius: 2rem;
     opacity: 92%;
+    text-align: center;
+}
+
+#feedback{
+    background-color: white;
+    opacity: 92%;
+    width: 50%;
+    margin: 10px auto;
+    border-radius: 2rem;
+    padding: .3rem;
+    font-weight: bold;
 }
