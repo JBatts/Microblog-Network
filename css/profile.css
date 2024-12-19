@@ -38,6 +38,7 @@ h2{
 }
 #logOut{
     width: 35%;
+    margin: auto;
 }
 #logOut:hover{
     background-color: red;
