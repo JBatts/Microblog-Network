@@ -13,3 +13,7 @@ input#password{
 #loginBtn{
     width: 20%;
 }
+
+#loginForm{
+    margin-top: 25px;
+}
