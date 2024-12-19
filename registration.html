@@ -28,16 +28,31 @@
             <div class="container">
                 <h1 class="display-4 text-light">Welcome to The Yapper's Hub</h1>
                 <p class="lead text-light mb-4">Join our community, share your thoughts, and interact with like-minded individuals!</p>
-                <a href="login.html" class="btn btn-primary btn-lg">Start Yapping</a>
+                <a href="login.html" class="btn btn-primary btn-lg">Returning Yapper?</a>
             </div>
         </section>
-    <main>
-        <label><span>Full Name</span><br><input type="text" id="fullName"></label><br><br>
-        <label><span>Username / Email</span><br><input type="email" id="username"></label><br><br>
-        <label><span>Password</span><br><input type="password" id="password"></label><br><br>
-        <button id="signUpBtn">Sign-Up Now</button>
-        <div id="output"></div>
-    </main>
+        <main class="container mt-5">
+            <form id="signUpForm">
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" id="fullName" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username / Email</label>
+                    <input type="email" id="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" id="signUpBtn" class="btn btn-primary btn-lg">Sign-Up Now</button>
+            </form>
+            <div id="output"></div>
+        </main>
+        
+    <footer class="bg-dark text-light text-center py-4">
+        <p>&copy; 2024 The Yapper's Hub | All rights reserved.</p>
+    </footer>
 </body>
 
 </html>

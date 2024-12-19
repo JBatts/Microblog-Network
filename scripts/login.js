@@ -6,6 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         // Success
-        window.location.href = "messages.html"
+        window.location.href = "index.html"
     }); // End Click
 }); // End load

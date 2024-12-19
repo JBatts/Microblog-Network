@@ -7,3 +7,15 @@ input#password{
 input#username{
     width: 35vw;
 }
+#fullName{
+    margin: auto;
+}
+#password{
+    margin: auto;
+}
+#username{
+    margin: auto;
+}
+#signUpBtn{
+    width: 20%;
+}

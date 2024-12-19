@@ -16,3 +16,8 @@ textarea#message{
     padding: .3rem;
     font-weight: bold;
 }
+
+
+#postForm{
+    margin: auto;
+}

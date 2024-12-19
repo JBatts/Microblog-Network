@@ -98,3 +98,15 @@ footer p {
 .bg-dark{
     opacity: 90%;
 }
+
+.card-img-top{
+    height: 250px;
+    width: 250px;
+    margin: auto;
+    padding-top: 15px;
+    border-radius: 15rem;
+}
+
+.blockquote-footer{
+    color: white;
+}

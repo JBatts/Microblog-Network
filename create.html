@@ -29,18 +29,21 @@
         <div class="container">
             <h1 class="display-4 text-light">Welcome to The Yapper's Hub</h1>
             <p class="lead text-light mb-4">Join our community, share your thoughts, and interact with like-minded individuals!</p>
-            <a href="login.html" class="btn btn-primary btn-lg">Start Yapping</a>
         </div>
     </section>
     <h3>Create a new post here!</h3>
 
-    <form id="postForm">
-        <label>
-            <textarea id="message" placeholder="Start yapping here! (Yap Yap Yap)" required></textarea><br>
-        </label><br>
-        <button id="createBtn">Create Post</button>
+    <form id="postForm" class="mt-4">
+        <div class="form-group">
+            <label for="message" class="text-light">Your Message:</label>
+            <textarea id="message" class="form-control" placeholder="Start yapping here! (Yap Yap Yap)" required></textarea>
+        </div>
+        <button id="createBtn" class="btn btn-primary btn-lg mt-3">Create Post</button>
     </form>
 
     <div id="feedback" style="display: none;"></div>
+    <footer class="bg-dark text-light text-center py-4">
+        <p>&copy; 2024 The Yapper's Hub | All rights reserved.</p>
+    </footer>
 </body>
 </html>

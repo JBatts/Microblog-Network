@@ -4,3 +4,12 @@ input#username{
 input#password{
     width: 35vw;
 }
+#password{
+    margin: auto;
+}
+#username{
+    margin: auto;
+}
+#loginBtn{
+    width: 20%;
+}

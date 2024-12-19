@@ -30,17 +30,17 @@
             <div class="container">
                 <h1 class="display-4 text-light">Welcome to The Yapper's Hub</h1>
                 <p class="lead text-light mb-4">Join our community, share your thoughts, and interact with like-minded individuals!</p>
-                <a href="login.html" class="btn btn-primary btn-lg">Start Yapping</a>
             </div>
         </section>
 
     <!-- Add placeholders for user profile -->
-    <section id="userProfile">
+    <section id="userProfile" class="container mt-5">
         <h2 id="greeting">Hello, User!</h2>
         <p id="profileInfo">Loading your profile information... <br> 
-            (If stuck here please log out and try again)</p>
-        <button id="editProfileBtn">Edit Profile</button>
+            <span id="errorMessage" class="text-danger" style="display:none;">Unable to load profile. Please try again.</span></p>
+        <button id="editProfileBtn" class="btn btn-primary">Edit Profile</button>
     </section>
+    
 
     <div id="editProfileModal" style="display: none;">
         <h2>Edit Profile</h2>
@@ -54,8 +54,8 @@
             <label for="editBio">Bio:</label><br>
             <textarea id="editBio" name="bio" class="custom-textarea"></textarea>
     <br><br>
-            <button type="submit">Save Changes</button>
-            <button type="button" id="cancelEdit">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" id="cancelEdit" class="btn btn-primary">Cancel</button>
         </form>
     </div><br><br>
 
@@ -66,6 +66,9 @@
         <h2>Your Posts</h2>
         <div id="postsContainer">Loading your posts...</div>
     </section>
+    <footer class="bg-dark text-light text-center py-4">
+        <p>&copy; 2024 The Yapper's Hub | All rights reserved.</p>
+    </footer>
 </body>
 
 </html>

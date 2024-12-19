@@ -104,3 +104,12 @@ input{
     opacity: 85%;
 }
 
+#topPostHeader{
+    width: 40%;
+    margin: auto;
+    background-color: whitesmoke;
+    color: black;
+    margin-top: 15px;
+    border-radius: 2rem;
+    opacity: 92%;
+}
