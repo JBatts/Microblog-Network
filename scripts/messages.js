@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    getLoginStatus();
     // Define the container
     const output = document.getElementById("output");
     const sortMessages = document.getElementById("sortMessages"); // Adjust based on your HTML
