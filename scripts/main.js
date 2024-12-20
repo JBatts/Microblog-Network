@@ -243,11 +243,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
     if (localStorage.token) {
         loginHtml.style.display = "none"
         regHtml.style.display = "none"
-        topPostHeader.style.display = "block"
     } else {
         createHtml.style.display = "none"
         postHtml.style.display = "none"
         profileHtml.style.display = "none"
-        topPostHeader.style.display = "none"
     }
 });

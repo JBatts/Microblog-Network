@@ -2,7 +2,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (localStorage.token) {
         returningYapBtn.style.display = "none"
         newUserYapBtn.style.display = "none"
-    } 
+        topPostHeader.style.display = "block"
+    } else {
+        topPostHeader.style.display = "none"
+    }
 
     // Fetch the latest posts and display them
     const posts = await getMessageList();
